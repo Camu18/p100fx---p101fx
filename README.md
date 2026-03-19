@@ -1,4 +1,4 @@
-# p100fx / p101 – Data-Driven UI & Multi-Language System
+# p100fx / p101fx – Data-Driven UI & Multi-Language System
 
 ---
 
@@ -52,7 +52,7 @@ This project is an experiment to bring that approach into **Java / JavaFX**.
 
 ---
 
-### 🔹 p101 – Đa ngôn ngữ / Multi-Language
+### 🔹 p101fx – Đa ngôn ngữ / Multi-Language
 
 **🇻🇳**
 
@@ -87,7 +87,7 @@ A runtime class that reads parametfile and initializes the UI.
 ## 🧠 Ý tưởng cốt lõi / Core Idea
 
 ```text id="coreflow"
-Design (p100fx + p101)
+Design (p100fx + p101fx)
         ↓
 Parametfile + Font files
         ↓
@@ -153,7 +153,7 @@ l = 2 → Vietnamese
 
 ```text id="workflow"
 1. Design UI (p100fx)
-2. Define text (p101)
+2. Define text (p101fx)
 3. Save parametfile + font files
 4. Run application
 5. mread() loads data
