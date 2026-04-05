@@ -1,251 +1,171 @@
-# p100fx / p101fx – Data-Driven UI & Multi-Language System
+# p100fx / p101fx
+
+## 🔷 Overview
+
+p100fx is an experimental UI engine built with JavaFX.
+
+It explores a different approach to building user interfaces:
+
+> UI is not defined in code — it is defined as data.
 
 ---
 
-## 📌 Giới thiệu / Introduction
+## 🔷 Core Idea
 
-### 🇻🇳 Tiếng Việt
+Traditional UI:
 
-Dự án này xuất phát từ một phương pháp lập trình được xây dựng từ những năm 1990 với PowerBASIC.
-
-Ý tưởng cốt lõi:
-
-* Không hardcode giao diện (UI)
-* Tách biệt **thiết kế – dữ liệu – thực thi**
-* Điều khiển chương trình bằng **file tham số bên ngoài**
-
-Dự án hiện tại là một thử nghiệm áp dụng lại tư duy đó trên **Java / JavaFX**.
-
----
-
-### 🇬🇧 English
-
-This project originates from a programming approach developed in the 1990s using PowerBASIC.
-
-Core ideas:
-
-* No hardcoded UI
-* Separation of **design – data – execution**
-* Control the application using **external parameter files**
-
-This project is an experiment to bring that approach into **Java / JavaFX**.
-
----
-
-## 🎯 Nhiệm vụ hệ thống / System Mission
-
-### 🔹 p100fx – Thiết kế UI / UI Designer
-
-**🇻🇳**
-
-* Thiết kế giao diện theo lưới (pixel / cell)
-* Xác định vị trí bằng hệ neo (posp, posb)
-* Gán loại object bằng mã (`$`, `#`, …)
-* Lưu vào parametfile
-
-**🇬🇧**
-
-* Design UI using grid (pixel / cell)
-* Define positions using anchor system (posp, posb)
-* Assign object types via encoded values (`$`, `#`, …)
-* Save into parametfile
-
----
-
-### 🔹 p101fx – Đa ngôn ngữ / Multi-Language
-
-**🇻🇳**
-
-* Tách text khỏi UI
-* Dùng key ngắn (`@1`, `@2`)
-* Ánh xạ theo ngôn ngữ
-
-**🇬🇧**
-
-* Separate text from UI
-* Use compact keys (`@1`, `@2`)
-* Map keys to language files
-
-Ví dụ / Example:
-
-| Key | English | Vietnamese |
-| --- | ------- | ---------- |
-| @1  | insert  | Thêm vào   |
-
----
-
-### 🔹 mread – Runtime Engine
-
-**🇻🇳**
-Class đọc parametfile và khởi tạo giao diện khi chạy.
-
-**🇬🇧**
-A runtime class that reads parametfile and initializes the UI.
-
----
-
-## 🧠 Ý tưởng cốt lõi / Core Idea
-
-```text id="coreflow"
-Design (p100fx + p101fx)
-        ↓
-Parametfile + Font files
-        ↓
-mread()
-        ↓
-Runtime UI
+```
+UI → Code → Compile → Run
 ```
 
-👉 **🇻🇳** UI được tạo từ dữ liệu
-👉 **🇬🇧** UI is built from data
+p100fx:
+
+```
+UI → Data → Load → Render
+```
+
+The interface is stored externally, loaded at runtime, and interpreted by the system.
 
 ---
 
-## 🔧 Nguyên lý mread / How mread Works
+## 🔷 Design Philosophy
 
-### 1. Quét dữ liệu / Scan
+This project does not aim to define a fixed implementation.
 
-* 🇻🇳 Quét tuần tự
-* 🇬🇧 Sequential scan
+Instead, it presents a way of thinking:
+
+* UI is not a collection of components
+* UI is a system defined by data
+* Interaction is not tied to objects, but to context
+
+The exact implementation may vary.
+
+Each developer is free to interpret and extend these ideas in their own way.
 
 ---
 
-### 2. Nhận diện object / Object Detection
+## 🔷 Key Principles
 
-* `$` → Panel → posp
-* `#` → Button / TextField → posb
-* `@n` → text key
+* **Data over Code**
+  UI behavior is driven by data structures
+
+* **Context over Components**
+  Meaning comes from how a region is interpreted
+
+* **Behavior over Structure**
+  Actions emerge from interaction, not predefined classes
 
 ---
 
-### 3. Gán vị trí / Position Mapping
+## 🔷 Interaction Concept
 
-```text id="posmap"
-row = index / columns
-col = index % columns
-x = col * cellWidth
-y = row * cellHeight
+The system does not rely on traditional UI components such as buttons or text fields.
+
+Instead, the interface is composed of **regions**.
+
+A region may represent:
+
+* navigation
+* an action
+* an input area
+
+Behavior is not hardcoded.
+
+> Behavior emerges from data, not from predefined components.
+
+---
+
+## 🔷 Runtime Behavior
+
+At runtime:
+
+1. Data is loaded
+2. The interface is rendered
+3. User interaction is interpreted
+4. The system responds based on context
+
+There is no fixed mapping like:
+
+```
+Button → onClick
+```
+
+Instead:
+
+```
+Region → Context → Behavior
 ```
 
 ---
 
-### 4. Lấy text / Resolve Text
+## 🔷 Architecture Direction
 
-```text id="lang"
-l = 1 → English
-l = 2 → Vietnamese
-```
+The system moves logic away from code and into data.
 
-```text id="map"
-@1 → insert / Thêm vào
-```
+This allows:
 
----
-
-### 5. Render UI
-
-* 🇻🇳 Tạo component và hiển thị
-* 🇬🇧 Create components and render
+* dynamic UI updates
+* flexible interaction models
+* reduced dependency on frameworks
 
 ---
 
-## 🔄 Quy trình / Workflow
+## 🔷 Origin
 
-```text id="workflow"
-1. Design UI (p100fx)
-2. Define text (p101fx)
-3. Save parametfile + font files
-4. Run application
-5. mread() loads data
-6. UI is built dynamically
-```
+This project is inspired by an earlier system developed in 1996–1997.
+
+That system explored similar ideas in a DOS environment.
+
+👉 See LPSTART repository for the original concept.
 
 ---
 
-## 🧩 Nguyên tắc / Principles
+## 🔷 What This Project Is
 
-* 🇻🇳 Data-driven, không hardcode
-
-* 🇬🇧 Data-driven, no hardcoding
-
-* 🇻🇳 Tách biệt layout / text / logic
-
-* 🇬🇧 Separation of layout / text / logic
+* a UI engine experiment
+* a design exploration
+* a foundation for alternative UI systems
 
 ---
 
-## 🚀 Ưu điểm / Advantages
+## 🔷 What This Project Is NOT
 
-* ✔ Không cần sửa code khi đổi UI / No recompilation for UI changes
-* ✔ Đa ngôn ngữ đơn giản / Easy multi-language
-* ✔ Nhẹ / Lightweight
-* ✔ Mở rộng dễ / Scalable
-
----
-
-## 🔮 Định hướng / Vision
-
-**🇻🇳**
-Xây dựng một hệ thống UI điều khiển hoàn toàn bằng dữ liệu.
-
-**🇬🇧**
-Build a UI system fully driven by data.
+* not a traditional JavaFX application
+* not based on standard UI components
+* not a fixed framework
 
 ---
 
-## 🤝 Đóng góp / Contribution
+## 🔷 Use Cases
 
-**🇻🇳**
-
-Đây là một ý tưởng mở.
-Dự án không nhằm trình diễn, mà để cùng xây dựng.
-
-Nếu bạn quan tâm:
-
-* data-driven UI
-* hệ thống nhẹ
-* cách tiếp cận khác
-
-👉 Bạn có thể tham gia và phát triển theo cách riêng của mình.
+* experimental UI systems
+* dynamic dashboards
+* research on data-driven design
 
 ---
 
-**🇬🇧**
+## 🔷 Status
 
-This is an open idea.
-
-The project is not meant to demonstrate, but to be explored and developed together.
-
-If you are interested in:
-
-* data-driven UI
-* lightweight systems
-* alternative approaches
-
-👉 You are welcome to explore and build your own way.
+Conceptual / evolving
 
 ---
 
-## 🧭 Ghi chú / Note
+## 🔷 Contributing
 
-**🇻🇳**
-Dự án cung cấp ý tưởng và cấu trúc, không phải hướng dẫn từng bước.
+You are encouraged to:
 
-**🇬🇧**
-This project provides ideas and structure, not step-by-step instructions.
+* explore the idea
+* reinterpret the system
+* build your own variation
 
----
-
-## 👤 Tác giả / Author
-Thanh Lam Nguyen
-
-**🇻🇳**
-Tiếp nối từ hệ thống PowerBASIC trước đây.
-
-**🇬🇧**
-A continuation of a previous PowerBASIC system.
+There is no single correct implementation.
 
 ---
 
-**“Mọi vấn đề đều có thể giải quyết bằng dữ liệu và toán học.”**
-**“Everything can be solved with data and mathematics.”**
+## 🔷 Final Thought
+
+This project is not about building UI.
+
+It is about redefining how UI can exist.
+
+> Move logic from code → into data
